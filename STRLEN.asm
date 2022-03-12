@@ -1,3 +1,5 @@
+global  strlen
+section .text
 ;-----------------------------------------------------
 ;   Strlen on asm
 ;   Entry:
@@ -7,21 +9,21 @@
 ;   Destr: ax, cx, si
 ;-----------------------------------------------------
 
-strlen      proc
+strlen:
     
-    xor     cx, cx
-    xor     ax, ax
+        xor     cx, cx
+        xor     ax, ax
 
-@@NextSymb:
+.NextSymb:
 
         inc     cx
 
         lodsb             ; al now have next symb
 
-        cmp     ax, '$'   ; comparing with end symb
-        jne     @@NextSymb
+        ;cmp     ax, '$'   ; comparing with end symb
+        test    ax, ax
+        jne     .NextSymb
 
         sub     cx, 1
-        ret
 
-endp
+        ret

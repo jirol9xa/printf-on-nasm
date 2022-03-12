@@ -14,7 +14,7 @@ section .text
 itoa: 
 
         push    rdi              ; addr of res arr in stack
-                                ; for reverse
+                                 ; for reverse
 
 .Next:
 
@@ -24,11 +24,9 @@ itoa:
                                 ; in ax quotient of division
 
         push    rax              ; now quotient in stack
-        mov     rax, rdx          ; preparing before hex2ascii
+        mov     rax, rdx         ; preparing before hex2ascii
 
         call    hex2ascii       ; in ax now ascii of number
-
-        mov     ah, 4eh
 
         stosb                   ; now we have last number at first place in 
 
@@ -42,8 +40,12 @@ itoa:
         mov     [rdi], rdx
 
 
+
         pop     rsi              ; addr of res arr in si
-                                ; for strlen
+                                 ; for strlen
+
+        push    rdi             ; saving before reverse
+
         push    rsi
 
         call    strlen          ; length of string in cx now
@@ -54,7 +56,7 @@ itoa:
         add     rdx, rcx
         dec     rdx              ; addr of last symb in dx 
 
-        mov     rdi, rdx          ; di have tail of array
+        mov     rdi, rdx         ; di have tail of array
 
 
 .Reverse:
@@ -71,6 +73,10 @@ itoa:
         cmp     rsi, rdi
         jb      .Reverse
 
+        ;mov     r11, res
+
+        pop     rdi             ; restoring after reverse
+
         ret
 
 
@@ -85,10 +91,12 @@ hex2ascii:
 
         mov     rbx, symtable
         xlatb                   ; now in ax we have ascii-code of symbol
+
+        pop     rbx     ; restoring rbx
+
         ret
 
 
 
 section .data
-res     times 4 db '$'
-symtable        db "0123456789ABCDEF"
+symtable         db "0123456789ABCDEF"

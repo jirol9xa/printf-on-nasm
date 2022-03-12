@@ -4,12 +4,12 @@
 ;       AX - current symb
 ;
 ;------------------------------------------------
-%macro  PUTCHAR 0
+%macro  PUTCHAR 1
 
         test    ax, ax          ; checking for \0
-        jz      end_printf
+        jz      %1
 
-        cmp     rdi, buff_end   ; checking on full buff
+        cmp     rdi, r10  ; checking on full buff
         jb     %%buff_ok 
 
         call    printbuff
