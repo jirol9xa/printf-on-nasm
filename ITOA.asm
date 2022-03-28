@@ -13,36 +13,36 @@ section .text
 
 itoa: 
 
-        push    rdi              ; addr of res arr in stack
-                                 ; for reverse
+        push    rdi             ; addr of res arr in stack
+                                ; for reverse
 
 .Next:
 
         xor     rdx, rdx
 
-        div     rbx              ; in dx the remainder of the division
+        div     rbx             ; in dx the remainder of the division
                                 ; in ax quotient of division
 
-        push    rax              ; now quotient in stack
-        mov     rax, rdx         ; preparing before hex2ascii
+        push    rax             ; now quotient in stack
+        mov     rax, rdx        ; preparing before hex2ascii
 
         call    hex2ascii       ; in ax now ascii of number
 
         stosb                   ; now we have last number at first place in 
 
-        pop     rax              ; now quotient in ax
+        pop     rax             ; now quotient in ax
 
         test    rax, rax
 
         ja      .Next
 
-        mov     rdx, 0           ; creating end-symb !!!!!!!!!! mb \0 doesn't fit
-        mov     [rdi], rdx
+        mov     rdx, 0          ; creating end-symb !!!!!!!!!! mb \0 doesn't fit
+        mov     [rdi], rdx      
 
 
 
-        pop     rsi              ; addr of res arr in si
-                                 ; for strlen
+        pop     rsi             ; addr of res arr in si
+                                ; for strlen
 
         push    rdi             ; saving before reverse
 
@@ -50,13 +50,13 @@ itoa:
 
         call    strlen          ; length of string in cx now
 
-        pop     rsi              ; si have head of array
+        pop     rsi             ; si have head of array
 
         mov     rdx, rsi
         add     rdx, rcx
-        dec     rdx              ; addr of last symb in dx 
+        dec     rdx             ; addr of last symb in dx 
 
-        mov     rdi, rdx         ; di have tail of array
+        mov     rdi, rdx        ; di have tail of array
 
 
 .Reverse:
@@ -87,12 +87,12 @@ hex2ascii:
         ;sbb     al, 69h
         ;das
 
-        push    rbx     ; saving rbx
+        push    rbx             ; saving rbx
 
         mov     rbx, symtable
         xlatb                   ; now in ax we have ascii-code of symbol
 
-        pop     rbx     ; restoring rbx
+        pop     rbx             ; restoring rbx
 
         ret
 
