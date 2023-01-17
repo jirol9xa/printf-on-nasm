@@ -116,7 +116,7 @@ realstart:
 section         .data
 format  db      "I love %x na %b%%%c I %s %x %d%%%c%b", 0x0A, 0
 string  db      "love", 0
-string2 db      "chlen", 0
+string2 db      "eda", 0
 
 section         .bss
 buff            resb    128
